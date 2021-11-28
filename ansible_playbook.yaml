@@ -1,16 +1,16 @@
 ---
-- name: Play One
+- name: Play with vars of the Play
   hosts: localhost
   vars:
-    a: 'variable a'
+    ip: '192.16.100.1'
   tags:
     var_play
   tasks:
-    - name: Task One
+    - name: Display variable task
       debug:
-        msg: "The Debug msg {{a}}"
+        msg: "The IP from the local vars of the Play {{ip}}"
 
-- name: Play Two               
+- name: Play with vars_files of the Play               
   hosts: localhost
   gather_facts: false
   tags:
@@ -18,18 +18,19 @@
   vars_files:
     - var_file.yaml
   tasks:
-    - name: Task One  
+    - name: Display file variable task
       debug:
-        msg: "The Debug msg-from var file : {{b}}"
+        msg: "The IP from the vars_files mentioned in the Play : {{ip}}"
 
-- name: Play three
+- name: Play with templates
   hosts: localhost
   vars:
-    varr: "this is from playbook"
+    loopback_ip: 127.0.0.10
+    subnet_mask: 255.255.255.0
   tags:
     template_play
   tasks:
     - name: Template Task One
       template:
-        src: 'templ.j2'
-        dest: 'templ'
+        src: 'loopback_template.j2'
+        dest: 'template_outputs/loopback10.conf'
