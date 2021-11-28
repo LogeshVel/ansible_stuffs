@@ -1,0 +1,6 @@
+[dns_servers]
+8.8.8.8
+
+[loopback]
+127.0.0.2
+
