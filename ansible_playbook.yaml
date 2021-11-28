@@ -1,0 +1,35 @@
+---
+- name: Play One
+  hosts: localhost
+  vars:
+    a: 'variable a'
+  tags:
+    var_play
+  tasks:
+    - name: Task One
+      debug:
+        msg: "The Debug msg {{a}}"
+
+- name: Play Two               
+  hosts: localhost
+  gather_facts: false
+  tags:
+    file_var_play
+  vars_files:
+    - var_file.yaml
+  tasks:
+    - name: Task One  
+      debug:
+        msg: "The Debug msg-from var file : {{b}}"
+
+- name: Play three
+  hosts: localhost
+  vars:
+    varr: "this is from playbook"
+  tags:
+    template_play
+  tasks:
+    - name: Template Task One
+      template:
+        src: 'templ.j2'
+        dest: 'templ'
